@@ -2,17 +2,17 @@ import React from "react";
 
 const Privacy = () => {
   return (
-    <section className="py-[80px] bg-gradient-to-b from-bg-light to-white max-md:py-[60px]">
+    <section className="py-[80px] bg-gradient-to-b from-bg-light to-white max-md:py-[60px] max-sm:py-[48px]">
       <div className="container-custom">
         <div className="max-w-[800px] mx-auto text-center animate-[fadeInUp_0.8s_ease-out]">
-          <div className="inline-block mb-8 animate-[scaleIn_0.8s_ease-out,float_3s_ease-in-out_infinite_1s] max-md:mb-6">
+          <div className="inline-block mb-8 animate-[scaleIn_0.8s_ease-out,float_3s_ease-in-out_infinite_1s] max-md:mb-6 max-sm:mb-5">
             <svg
               width="64"
               height="64"
               viewBox="0 0 64 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="max-md:w-12 max-md:h-12"
+              className="max-md:w-14 max-md:h-14 max-sm:w-12 max-sm:h-12"
             >
               <circle
                 cx="32"
@@ -48,7 +48,7 @@ const Privacy = () => {
             </svg>
           </div>
 
-          <h2 className="text-4xl font-extrabold text-text-dark mb-6 tracking-tighter animate-[fadeInUp_0.8s_ease-out_0.2s_both] max-md:text-[28px] max-md:mb-5 max-sm:text-2xl">
+          <h2 className="text-4xl font-extrabold text-text-dark mb-6 tracking-tighter animate-[fadeInUp_0.8s_ease-out_0.2s_both] max-md:text-[32px] max-md:mb-5 max-sm:text-[28px] max-sm:leading-[1.2]">
             Your Privacy is Our Priority
           </h2>
 

@@ -107,19 +107,19 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-[80px] bg-bg-light max-md:py-[60px]">
+    <section className="py-[80px] bg-bg-light max-md:py-[60px] max-sm:py-[48px]">
       <div className="container-custom">
-        <div className="text-center mb-[60px] animate-[fadeInUp_0.8s_ease-out] max-md:mb-[40px]">
-          <h2 className="text-[40px] font-extrabold text-text-dark mb-4 tracking-tight max-md:text-[32px] max-sm:text-[28px]">
+        <div className="text-center mb-[60px] animate-[fadeInUp_0.8s_ease-out] max-md:mb-[40px] max-sm:mb-[32px]">
+          <h2 className="text-[40px] font-extrabold text-text-dark mb-4 tracking-tight max-md:text-[32px] max-sm:text-[28px] max-sm:leading-[1.2]">
             Core Features Designed for You
           </h2>
-          <p className="text-lg text-text-gray max-w-[700px] mx-auto leading-[1.7] max-md:text-base">
+          <p className="text-lg text-text-gray max-w-[700px] mx-auto leading-[1.7] max-md:text-base max-sm:text-[15px]">
             Get instant answers, connect with experts, and manage your case—all
             in one secure platform.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-md:gap-6 max-md:mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-md:gap-6 max-md:mt-8 max-sm:mt-6">
           {features.map((feature, index) => (
             <div
               key={feature.id}
@@ -127,7 +127,7 @@ const Features = () => {
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-blue to-accent-purple scale-x-0 origin-left transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-x-100"></div>
-              <div className="mb-6 inline-block transition-all duration-300 group-hover:scale-110 group-hover:rotate-[5deg]">
+              <div className="mb-6 inline-block transition-all duration-300 group-hover:scale-110 group-hover:rotate-[5deg] max-sm:mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-[22px] font-bold text-text-dark mb-3 max-sm:text-xl">

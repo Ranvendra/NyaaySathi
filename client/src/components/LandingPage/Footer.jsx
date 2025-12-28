@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <nav className="flex gap-8 flex-wrap justify-center max-md:gap-6 max-sm:flex-col max-sm:gap-5 max-sm:items-center">
+          <nav className="flex gap-8 flex-wrap justify-center max-md:gap-6 max-sm:flex-col max-sm:gap-4 max-sm:items-center">
             {["Terms", "Privacy Policy", "Contact"].map((item) => (
               <a
                 key={item}
@@ -59,7 +59,7 @@ const Footer = () => {
           </nav>
 
           {/* Copyright */}
-          <p className="text-sm text-text-light text-center m-0">
+          <p className="text-sm text-text-light text-center m-0 max-sm:text-xs">
             © {currentYear} NyaaySaathi. All rights reserved.
           </p>
         </div>

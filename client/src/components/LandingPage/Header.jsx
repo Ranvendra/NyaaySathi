@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,17 +56,52 @@ const Header = () => {
             </span>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex items-center gap-3">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-3">
             <button className="btn-base bg-gradient-to-br from-primary-blue to-primary-blue-dark text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(37,99,235,0.4)] active:translate-y-0">
-              Consult a Lawyer
+              Signup
             </button>
             <button className="btn-base bg-transparent text-text-dark border-2 border-border-color hover:bg-bg-light hover:border-primary-blue hover:text-primary-blue hover:-translate-y-0.5">
               Login
             </button>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-text-dark"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {isMobileMenuOpen ? (
+                <path d="M18 6L6 18M6 6l12 12" />
+              ) : (
+                <path d="M3 12h18M3 6h18M3 18h18" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-border-color p-4 flex flex-col gap-4 md:hidden animate-[fadeIn_0.2s_ease-out]">
+          <button className="btn-base w-full bg-gradient-to-br from-primary-blue to-primary-blue-dark text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)]">
+            Consult a Lawyer
+          </button>
+          <button className="btn-base w-full bg-transparent text-text-dark border-2 border-border-color hover:border-primary-blue hover:text-primary-blue">
+            Login
+          </button>
+        </div>
+      )}
     </header>
   );
 };
