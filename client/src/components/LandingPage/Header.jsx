@@ -95,7 +95,7 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-border-color p-4 flex flex-col gap-4 md:hidden animate-[fadeIn_0.2s_ease-out]">
           <button className="btn-base w-full bg-gradient-to-br from-primary-blue to-primary-blue-dark text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)]">
-            Consult a Lawyer
+            Signup
           </button>
           <button className="btn-base w-full bg-transparent text-text-dark border-2 border-border-color hover:border-primary-blue hover:text-primary-blue">
             Login
