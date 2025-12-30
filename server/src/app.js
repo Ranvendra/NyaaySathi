@@ -1,6 +1,7 @@
 const express = require("express");
 const { connectDB } = require("./db/config");
 const { authRouter } = require("./routes/authRoutes");
+const { lawyerRouter } = require("./routes/lawyerRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
@@ -22,6 +23,7 @@ app.use(
 connectDB();
 
 app.use("/api/auth", authRouter);
+app.use("/api/lawyer", lawyerRouter);
 app.use("/", async (req, res) => {
     return res.status(200).json({ message: "Nyaay Sathi Server is running Successfully." })
 })

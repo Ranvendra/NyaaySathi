@@ -6,6 +6,11 @@ import Signup from "./components/LandingPage/Signup";
 import Login from "./components/LandingPage/Login";
 import UserDashboard from "./components/User/UserDashboard";
 import LawyerDashboard from "./components/Lawyer/LawyerDashboard";
+import LawyerCases from "./components/Lawyer/LawyerCases";
+import LawyerCalendar from "./components/Lawyer/LawyerCalendar";
+import LawyerMessages from "./components/Lawyer/LawyerMessages";
+import LawyerDocuments from "./components/Lawyer/LawyerDocuments";
+import LawyerEarnings from "./components/Lawyer/LawyerEarnings";
 
 function App() {
   return (
@@ -42,6 +47,11 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/lawyer/cases" element={<LawyerCases />} />
+        <Route path="/lawyer/calendar" element={<LawyerCalendar />} />
+        <Route path="/lawyer/messages" element={<LawyerMessages />} />
+        <Route path="/lawyer/documents" element={<LawyerDocuments />} />
+        <Route path="/lawyer/earnings" element={<LawyerEarnings />} />
         <Route path="/lawyer/dashboard" element={<LawyerDashboard />} />
       </Routes>
     </Router>
