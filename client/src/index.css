@@ -102,5 +102,7 @@ html {
 
 /* Base button styles to be extended by Tailwind utility classes */
 .btn-base {
-  @apply px-6 py-3 rounded-lg text-[15px] font-semibold cursor-pointer border-none transition-all duration-300 font-sans relative overflow-hidden;
+  @apply px-6 py-3 rounded-lg text-[15px] font-semibold cursor-pointer
+    transition-all duration-300 font-sans relative overflow-hidden;
 }
+
