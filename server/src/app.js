@@ -20,7 +20,7 @@ connectDB();
 
 app.use("/api/auth", authRouter);
 app.use("/", async(req, res)=> {
-    return res.status(200).json("Nyaay Sathi Server is running Successfully.")
+    return res.status(200).json({message: "Nyaay Sathi Server is running Successfully."})
 })
 
 module.exports = { app };
