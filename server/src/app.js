@@ -11,7 +11,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, ""),
+        origin: [
+            "http://localhost:5173",
+            (process.env.FRONTEND_URL || "").replace(/\/$/, ""),
+        ].filter(Boolean), // Remove empty strings if env var is missing
         credentials: true,
     })
 );
@@ -19,8 +22,8 @@ app.use(
 connectDB();
 
 app.use("/api/auth", authRouter);
-app.use("/", async(req, res)=> {
-    return res.status(200).json({message: "Nyaay Sathi Server is running Successfully."})
+app.use("/", async (req, res) => {
+    return res.status(200).json({ message: "Nyaay Sathi Server is running Successfully." })
 })
 
 module.exports = { app };
