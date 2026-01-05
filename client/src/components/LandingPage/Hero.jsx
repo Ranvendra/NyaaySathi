@@ -42,7 +42,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-tight"
+            className="text-4xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-tight"
           >
             Justice{" "}
             <span className="text-blue-600 relative inline-block">

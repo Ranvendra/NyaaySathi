@@ -64,7 +64,7 @@ const PremiumStatCard = ({
       className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 ${colorTheme.bg} opacity-20 blur-3xl rounded-full group-hover:opacity-30 transition-opacity duration-700`}
     />
     <div className="relative z-10 flex flex-row items-center justify-between gap-4">
-      <div className="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
+      <div className="relative w-20 h-20 shrink-0 flex items-center justify-center">
         <div className="absolute inset-0 border border-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 scale-125" />
         <div className="relative z-20 w-14 h-14 bg-white rounded-2xl shadow-lg shadow-indigo-100 flex items-center justify-center animate-float">
           <MainIcon size={28} className={colorTheme.text} />
@@ -191,7 +191,7 @@ const LawyerCases = () => {
 
         <div className="flex-1 flex flex-col p-4 sm:p-8 max-w-[1600px] mx-auto w-full relative z-10 h-full overflow-hidden">
           {/* Header Area */}
-          <div className="flex-shrink-0 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 animate-fade-in-up">
+          <div className="shrink-0 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 animate-fade-in-up">
             <div>
               <h1 className="text-4xl font-bold text-slate-900 tracking-tight">
                 Case Management
@@ -207,7 +207,7 @@ const LawyerCases = () => {
           </div>
 
           {/* Premium Stats Grid - Fixed at Top */}
-          <div className="flex-shrink-0 grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="shrink-0 grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <PremiumStatCard
               title="Total Cases"
               value="124"
@@ -302,9 +302,83 @@ const LawyerCases = () => {
               </div>
             </div>
 
-            {/* Table Content */}
-            <div className="flex-1 overflow-auto custom-scrollbar">
-              <table className="w-full">
+            {/* Content Container - Responsive */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-0">
+              {/* Mobile Card View (md:hidden) */}
+              <div className="md:hidden space-y-4">
+                {currentCases.length > 0 ? (
+                  currentCases.map((caseItem) => (
+                    <div
+                      key={caseItem.id}
+                      className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm relative overflow-hidden"
+                    >
+                      <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                      <div className="flex justify-between items-start mb-3 pl-3">
+                        <div>
+                          <h3 className="font-bold text-slate-900 text-lg">
+                            {caseItem.caseName}
+                          </h3>
+                          <p className="text-sm text-slate-500 font-medium flex items-center gap-2 mt-1">
+                            <User size={14} />
+                            {caseItem.client}
+                          </p>
+                        </div>
+                        <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg">
+                          <MoreVertical size={20} />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 mb-4 pl-3">
+                        <div className="bg-slate-50 rounded-xl p-2.5">
+                          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">
+                            Type
+                          </p>
+                          <span className="font-semibold text-slate-700 text-sm">
+                            {caseItem.type}
+                          </span>
+                        </div>
+                        <div className="bg-slate-50 rounded-xl p-2.5">
+                          <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">
+                            Activity
+                          </p>
+                          <span className="font-semibold text-slate-700 text-sm">
+                            {caseItem.lastActivity}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pl-3 border-t border-slate-50 pt-3 mt-2">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-inset ${getStatusColor(
+                            caseItem.status
+                          )}`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              caseItem.status === "Active"
+                                ? "bg-emerald-500"
+                                : caseItem.status === "Pending"
+                                ? "bg-amber-500"
+                                : "bg-slate-500"
+                            }`}
+                          ></span>
+                          {caseItem.status}
+                        </span>
+                        <button className="text-blue-600 text-sm font-bold flex items-center gap-1">
+                          View Details <ChevronRight size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-20 text-slate-500 font-medium">
+                    No cases found.
+                  </div>
+                )}
+              </div>
+
+              {/* Desktop Table View (hidden md:block) */}
+              <table className="w-full hidden md:table">
                 <thead className="sticky top-0 bg-white/90 backdrop-blur-md z-10 shadow-sm">
                   <tr>
                     <th className="text-left py-5 px-8 text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -313,7 +387,7 @@ const LawyerCases = () => {
                     <th className="text-left py-5 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider hidden sm:table-cell">
                       Type
                     </th>
-                    <th className="text-left py-5 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider hidden md:table-cell">
+                    <th className="text-left py-5 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider hidden lg:table-cell">
                       Activity
                     </th>
                     <th className="text-left py-5 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -347,7 +421,7 @@ const LawyerCases = () => {
                             {caseItem.type}
                           </span>
                         </td>
-                        <td className="py-5 px-6 hidden md:table-cell">
+                        <td className="py-5 px-6 hidden lg:table-cell">
                           <span className="text-slate-500 font-medium text-sm">
                             {caseItem.lastActivity}
                           </span>

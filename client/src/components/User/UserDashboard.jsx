@@ -21,7 +21,7 @@ const UserDashboard = () => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-2">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight mb-2">
               Your Legal Dashboard
             </h1>
             <p className="text-slate-500 font-medium">
@@ -53,7 +53,7 @@ const UserDashboard = () => {
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 flex flex-col gap-8">
             {/* Countdown & Video Section - Merged Visuals */}
-            <div className="bg-white/70 backdrop-blur-xl border border-white/50 shadow-lg rounded-[32px] p-6 lg:p-8 relative overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform-gpu">
+            <div className="bg-white/70 backdrop-blur-xl border border-white/50 shadow-lg rounded-[32px] p-5 lg:p-8 relative overflow-hidden group hover:shadow-xl transition-shadow duration-300 transform-gpu">
               {/* Video Placeholder */}
               <div className="aspect-video bg-slate-900 rounded-2xl mb-6 relative overflow-hidden shadow-inner flex items-center justify-center group-hover:shadow-2xl transition-shadow duration-500 transform-gpu">
                 <div className="absolute inset-0 bg-linear-to-br from-indigo-500/20 to-purple-500/20 mix-blend-overlay" />
@@ -100,7 +100,7 @@ const UserDashboard = () => {
             {/* Action Items & Info Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Documents Required */}
-              <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-md rounded-[32px] p-8 hover:bg-white/80 transition-all duration-300 hover:-translate-y-1 transform-gpu will-change-transform">
+              <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-md rounded-[32px] p-5 md:p-8 hover:bg-white/80 transition-all duration-300 hover:-translate-y-1 transform-gpu will-change-transform">
                 <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                   <FileText size={20} className="text-blue-500" />
                   Documents Required
@@ -140,7 +140,7 @@ const UserDashboard = () => {
               </div>
 
               {/* Court Location Card */}
-              <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-md rounded-[32px] p-8 hover:bg-white/80 transition-all duration-300 flex flex-col hover:-translate-y-1 transform-gpu will-change-transform">
+              <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-md rounded-[32px] p-5 md:p-8 hover:bg-white/80 transition-all duration-300 flex flex-col hover:-translate-y-1 transform-gpu will-change-transform">
                 <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <MapPin size={20} className="text-indigo-500" />
                   Court You Must Report To
