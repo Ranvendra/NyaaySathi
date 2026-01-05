@@ -1,71 +1,91 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Twitter, Linkedin, Facebook, Github } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-[60px] pb-[40px] bg-white border-t border-border-color max-md:py-[48px] max-md:pb-[32px] max-sm:py-[40px] max-sm:pb-[24px]">
-      <div className="container-custom">
-        <div className="flex flex-col items-center gap-6 animate-[fadeIn_0.8s_ease-out] max-sm:gap-5">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  width="32"
-                  height="32"
-                  rx="6"
-                  fill="url(#footer-gradient)"
-                />
-                <path d="M12 8H20V10H18V22H14V10H12V8Z" fill="white" />
-                <defs>
-                  <linearGradient
-                    id="footer-gradient"
-                    x1="0"
-                    y1="0"
-                    x2="32"
-                    y2="32"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#2563eb" />
-                    <stop offset="1" stopColor="#3b82f6" />
-                  </linearGradient>
-                </defs>
-              </svg>
+    <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          {/* Brand */}
+          <div className="col-span-1 md:col-span-2">
+            <Link to="/" className="flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-xl shadow-lg shadow-blue-600/20">
+                <span className="text-white font-bold text-xl">N</span>
+              </div>
+              <span className="text-xl font-bold text-slate-900 tracking-tight">
+                NyaaySathi
+              </span>
+            </Link>
+            <p className="text-slate-500 mb-6 max-w-sm leading-relaxed">
+              Democratizing legal access through AI technology. Secure,
+              efficient, and accessible justice for everyone.
+            </p>
+            <div className="flex gap-4">
+              <SocialIcon icon={Twitter} />
+              <SocialIcon icon={Linkedin} />
+              <SocialIcon icon={Facebook} />
+              <SocialIcon icon={Github} />
             </div>
-            <span className="text-xl font-bold text-text-dark tracking-tighter max-md:text-lg">
-              NyaaySaathi
-            </span>
           </div>
 
           {/* Links */}
-          <nav className="flex gap-8 flex-wrap justify-center max-md:gap-6 max-sm:flex-col max-sm:gap-4 max-sm:items-center">
-            {["Terms", "Privacy Policy", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className="text-[15px] text-text-gray no-underline transition-all duration-150 relative hover:text-primary-blue group max-md:text-sm"
-              >
-                {item}
-                <span className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-primary-blue transition-[width] duration-300 group-hover:w-full max-sm:hidden"></span>
-              </a>
-            ))}
-          </nav>
+          <div>
+            <h4 className="font-bold text-slate-900 mb-4">Platform</h4>
+            <ul className="space-y-3">
+              <FooterLink to="/" text="Home" />
+              <FooterLink to="/signup" text="Find a Lawyer" />
+              <FooterLink to="/signup" text="For Lawyers" />
+              <FooterLink to="/login" text="Login" />
+            </ul>
+          </div>
 
-          {/* Copyright */}
-          <p className="text-sm text-text-light text-center m-0 max-sm:text-xs">
-            © {currentYear} NyaaySaathi. All rights reserved.
+          <div>
+            <h4 className="font-bold text-slate-900 mb-4">Legal</h4>
+            <ul className="space-y-3">
+              <FooterLink to="#privacy" text="Privacy Policy" />
+              <FooterLink to="#terms" text="Terms of Service" />
+              <FooterLink to="#contact" text="Contact Us" />
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-slate-500 text-sm">
+            © {currentYear} NyaaySathi. All rights reserved.
           </p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="text-sm text-slate-500 font-medium">
+              System Operational
+            </span>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
+
+const SocialIcon = ({ icon: Icon }) => (
+  <a
+    href="#"
+    className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm"
+  >
+    <Icon size={18} />
+  </a>
+);
+
+const FooterLink = ({ to, text }) => (
+  <li>
+    <Link
+      to={to}
+      className="text-slate-500 hover:text-blue-600 transition-colors"
+    >
+      {text}
+    </Link>
+  </li>
+);
 
 export default Footer;

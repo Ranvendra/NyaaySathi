@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,109 +11,86 @@ const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-1000 transition-all duration-300 animate-[fadeIn_0.5s_ease-out]
-      ${
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 shadow-md backdrop-blur-md"
-          : "bg-white/80 backdrop-blur-sm"
+          ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100/50 py-3"
+          : "bg-transparent py-5"
       }`}
     >
-      <div className="container-custom">
-        <div className="flex justify-between items-center py-5 animate-[slideInFromLeft_0.6s_ease-out]">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center gap-3 cursor-pointer group transition-transform duration-150 hover:-translate-y-0.5">
-            <div className="flex items-center justify-center animate-[scaleIn_0.5s_ease-out_0.2s_both]">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="32" height="32" rx="6" fill="url(#gradient)" />
-                <path d="M12 8H20V10H18V22H14V10H12V8Z" fill="white" />
-                <defs>
-                  <linearGradient
-                    id="gradient"
-                    x1="0"
-                    y1="0"
-                    x2="32"
-                    y2="32"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#2563eb" />
-                    <stop offset="1" stopColor="#3b82f6" />
-                  </linearGradient>
-                </defs>
-              </svg>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative flex items-center justify-center w-10 h-10 bg-blue-600 rounded-xl shadow-lg shadow-blue-600/20 group-hover:scale-105 transition-transform duration-300">
+              <span className="text-white font-bold text-xl">N</span>
             </div>
-            <span className="text-xl font-bold text-text-dark tracking-tighter">
-              Nyaay Sathi
+            <span
+              className={`text-xl font-bold tracking-tight transition-colors ${
+                isScrolled ? "text-slate-800" : "text-slate-900"
+              }`}
+            >
+              NyaaySathi
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-3">
-            <Link to="/signup">
-              <button className="btn-base bg-linear-to-br from-primary-blue to-primary-blue-dark text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(37,99,235,0.4)] active:translate-y-0">
-                Signup
+          <nav className="hidden md:flex items-center gap-4">
+            <Link to="/login">
+              <button className="px-5 py-2.5 text-slate-600 font-medium hover:text-blue-600 transition-colors">
+                Log In
               </button>
             </Link>
-            <Link to="/login">
-              <button className="btn-base bg-transparent text-blue-500 border border-blue-500 hover:bg-bg-light hover:border-primary-blue hover:text-primary-blue hover:-translate-y-0.5">
-                Login
+            <Link to="/signup">
+              <button className="px-6 py-2.5 bg-slate-900 text-white font-medium rounded-full shadow-lg shadow-slate-900/10 hover:bg-slate-800 hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                Get Started
               </button>
             </Link>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-text-dark"
+            className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {isMobileMenuOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              )}
-            </svg>
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-border-color p-4 flex flex-col gap-4 md:hidden animate-[fadeIn_0.2s_ease-out]">
-          <Link to="/signup" className="w-full">
-            <button className="btn-base w-full bg-linear-to-br from-primary-blue to-primary-blue-dark text-white shadow-[0_4px_12px_rgba(37,99,235,0.3)]">
-              Signup
-            </button>
-          </Link>
-          <Link to="/login" className="w-full">
-            <button className="btn-base w-full bg-transparent text-text-dark border-2 border-border-color hover:border-primary-blue hover:text-primary-blue">
-              Login
-            </button>
-          </Link>
-        </div>
-      )}
-    </header>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
+          >
+            <div className="container mx-auto px-4 py-4 space-y-3">
+              <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                <button className="w-full py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-md">
+                  Sign Up
+                </button>
+              </Link>
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                <button className="w-full py-3 text-slate-600 font-medium border border-gray-200 rounded-xl hover:bg-gray-50">
+                  Log In
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

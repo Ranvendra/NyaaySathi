@@ -1,36 +1,120 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, Scale, Shield, Users } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative pt-[140px] pb-[100px] mt-[72px] overflow-hidden max-md:pt-[100px] max-md:pb-[60px] max-md:mt-[60px]">
-      <div className="container-custom">
-        <div className="relative z-10 max-w-[900px] mx-auto text-center bg-gradient-to-br from-[#ede9fe99] to-[#dbeafe99] px-[60px] py-[80px] rounded-[24px] shadow-[0_20px_50px_rgba(37,99,235,0.15)] backdrop-blur-md border border-white/80 animate-[fadeInUp_0.8s_ease-out] max-md:p-[30px] max-md:max-w-full max-sm:p-[24px]">
-          <h1 className="text-5xl font-extrabold leading-[1.2] text-text-dark mb-5 tracking-tight animate-[fadeInUp_0.8s_ease-out_0.2s_both] max-md:text-[32px] max-sm:text-[28px]">
-            A One-Stop Platform for All Your Legal Needs
-          </h1>
-          <p className="text-lg leading-[1.7] text-text-gray mb-10 max-w-[700px] mx-auto animate-[fadeInUp_0.8s_ease-out_0.4s_both] max-md:text-base max-md:mb-8">
-            Experience simplified legal processes with end-to-end encryption for
-            complete privacy and immediate, reliable assistance.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap animate-[fadeInUp_0.8s_ease-out_0.6s_both] max-md:flex-col max-md:items-center max-md:gap-3">
-            <button className="btn-base bg-gradient-to-br from-primary-blue to-primary-blue-dark text-white px-8 py-4 text-base rounded-[10px] shadow-[0_8px_20px_rgba(37,99,235,0.35)] hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(37,99,235,0.45)] active:-translate-y-px max-md:w-full max-w-[300px] max-md:py-3 max-md:text-[15px]">
-              Consult a Lawyer
-            </button>
-            <button className="btn-base bg-white text-text-dark border-2 border-border-color px-8 py-4 text-base rounded-[10px] shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-bg-light hover:border-primary-blue hover:text-primary-blue hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)] active:-translate-y-px max-md:w-full max-w-[300px] max-md:py-3 max-md:text-[15px]">
-              Start ChatBot (No Login Required)
-            </button>
-          </div>
-        </div>
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      {/* Background Gradients & Blobs */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-blue-50 via-white to-white opacity-70"></div>
+        <motion.div
+          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-24 -right-24 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+        ></motion.div>
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 50, 0] }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 2,
+          }}
+          className="absolute top-1/2 -left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+        ></motion.div>
       </div>
 
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite] w-[400px] h-[400px] bg-gradient-to-br from-primary-blue to-accent-purple -top-[100px] -right-[100px] max-md:w-[200px] max-md:h-[200px]"></div>
-        <div className="absolute rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite_2s] w-[300px] h-[300px] bg-gradient-to-br from-accent-purple to-primary-blue-light -bottom-[80px] -left-[80px] max-md:w-[150px] max-md:h-[150px]"></div>
-        <div className="absolute rounded-full opacity-10 animate-[float_6s_ease-in-out_infinite_4s] w-[200px] h-[200px] bg-gradient-to-br from-primary-blue-light to-primary-blue top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-md:w-[100px] max-md:h-[100px]"></div>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-sm font-medium mb-8"
+          >
+            <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+            AI-Powered Legal Assistance
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-tight"
+          >
+            Justice{" "}
+            <span className="text-blue-600 relative inline-block">
+              Simplified
+              <svg
+                className="absolute w-full h-3 -bottom-2 left-0 text-blue-200 -z-10"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5 Q 50 10 100 5 L 100 10 L 0 10 Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>{" "}
+            for Everyone
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            Your one-stop platform for all legal needs. Connect with verified
+            lawyers, get instant AI insights, and manage documents with
+            bank-grade security.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Link to="/signup" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition-all hover:scale-105 flex items-center justify-center gap-2 group">
+                Find a Lawyer
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
+            <Link to="/signup" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2">
+                Register as Lawyer
+              </button>
+            </Link>
+          </motion.div>
+
+          {/* Stats / Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="mt-16 pt-8 border-t border-slate-100 grid grid-cols-2 md:grid-cols-3 gap-8 text-center"
+          >
+            <TrustItem count="500+" label="Verified Lawyers" />
+            <TrustItem count="24/7" label="AI Legal Support" />
+            <TrustItem count="100%" label="Secure & Private" />
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 };
+
+const TrustItem = ({ count, label }) => (
+  <div className="space-y-1">
+    <div className="text-2xl md:text-3xl font-bold text-slate-900">{count}</div>
+    <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">
+      {label}
+    </div>
+  </div>
+);
 
 export default Hero;
