@@ -126,32 +126,33 @@ const Signup = () => {
 const SelectionScreen = ({ setRole }) => {
   const [hoveredSide, setHoveredSide] = useState(null);
 
-  const leftClasses =
-    hoveredSide === "left"
-      ? "w-[55%]"
-      : hoveredSide === "right"
-      ? "w-[45%]"
-      : "w-1/2";
-  const rightClasses =
-    hoveredSide === "right"
-      ? "w-[55%]"
+  // Determine width based on hover state and screen size (mobile always 100% via CSS classes, desktop uses animation)
+  const getWidth = (side) => {
+    // This logic primarily drives the desktop animation
+    // On mobile, the width is overridden by CSS classes (w-full)
+    if (side === "left") {
+      return hoveredSide === "left"
+        ? "60%"
+        : hoveredSide === "right"
+        ? "40%"
+        : "50%";
+    }
+    // Right side
+    return hoveredSide === "right"
+      ? "60%"
       : hoveredSide === "left"
-      ? "w-[45%]"
-      : "w-1/2";
+      ? "40%"
+      : "50%";
+  };
 
   return (
-    <div className="flex h-screen w-full relative">
+    <div className="flex flex-col md:flex-row h-screen w-full relative">
       {/* Left Side - User */}
       <motion.div
-        className="relative h-full flex flex-col items-center justify-center cursor-pointer bg-linear-to-br from-blue-50 to-white overflow-hidden group"
+        className="relative h-1/2 md:h-full w-full md:w-auto flex flex-col items-center justify-center cursor-pointer bg-linear-to-br from-blue-50 to-white overflow-hidden group border-b md:border-b-0 md:border-r border-blue-100"
         initial={{ width: "50%" }}
         animate={{
-          width:
-            hoveredSide === "left"
-              ? "60%"
-              : hoveredSide === "right"
-              ? "40%"
-              : "50%",
+          width: window.innerWidth >= 768 ? getWidth("left") : "100%",
         }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         onMouseEnter={() => setHoveredSide("left")}
@@ -161,12 +162,13 @@ const SelectionScreen = ({ setRole }) => {
         <div className="absolute inset-0 bg-blue-100 opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
 
         {/* Decorative Circles */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        {/* Decorative Circles - Optimized for Mobile (Reduced Blur) */}
+        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl md:blur-3xl opacity-20 md:opacity-30 animate-blob will-change-transform"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl md:blur-3xl opacity-20 md:opacity-30 animate-blob animation-delay-2000 will-change-transform"></div>
 
         <div className="z-10 text-center space-y-6 px-10 transform group-hover:scale-105 transition-transform duration-500">
           <div className="relative inline-block">
-            <div className="absolute inset-0 bg-blue-200 blur-xl rounded-full opacity-50 group-hover:opacity-80 transition-opacity"></div>
+            <div className="absolute inset-0 bg-blue-200 blur-lg md:blur-xl rounded-full opacity-50 group-hover:opacity-80 transition-opacity"></div>
             <div className="bg-white p-6 rounded-2xl shadow-xl relative ring-1 ring-blue-100">
               <User size={64} className="text-blue-600" />
             </div>
@@ -188,15 +190,10 @@ const SelectionScreen = ({ setRole }) => {
 
       {/* Right Side - Lawyer */}
       <motion.div
-        className="relative h-full flex flex-col items-center justify-center cursor-pointer bg-slate-900 border-l border-slate-800 overflow-hidden group"
+        className="relative h-1/2 md:h-full w-full md:w-auto flex flex-col items-center justify-center cursor-pointer bg-slate-900 overflow-hidden group"
         initial={{ width: "50%" }}
         animate={{
-          width:
-            hoveredSide === "right"
-              ? "60%"
-              : hoveredSide === "left"
-              ? "40%"
-              : "50%",
+          width: window.innerWidth >= 768 ? getWidth("right") : "100%",
         }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         onMouseEnter={() => setHoveredSide("right")}
@@ -209,7 +206,7 @@ const SelectionScreen = ({ setRole }) => {
 
         <div className="z-10 text-center space-y-6 px-10 transform group-hover:scale-105 transition-transform duration-500">
           <div className="relative inline-block">
-            <div className="absolute inset-0 bg-amber-500 blur-xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity"></div>
+            <div className="absolute inset-0 bg-amber-500 blur-lg md:blur-xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity"></div>
             <div className="bg-slate-800 p-6 rounded-2xl shadow-2xl relative border border-slate-700">
               <Scale size={64} className="text-amber-500" />
             </div>

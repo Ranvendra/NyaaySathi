@@ -182,14 +182,14 @@ const LawyerCases = () => {
   return (
     <LawyerLayout lawyer={MockLawyer}>
       <style>{customStyles}</style>
-      <div className="h-screen bg-[#F8FAFC] relative overflow-hidden font-sans flex flex-col">
+      <div className="min-h-screen xl:h-screen bg-[#F8FAFC] relative xl:overflow-hidden font-sans flex flex-col">
         {/* Subtle Background Mesh */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] opacity-60" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[100px] opacity-60" />
         </div>
 
-        <div className="flex-1 flex flex-col p-4 sm:p-8 max-w-[1600px] mx-auto w-full relative z-10 h-full overflow-hidden">
+        <div className="flex-1 flex flex-col p-4 sm:p-8 max-w-[1600px] mx-auto w-full relative z-10 xl:h-full xl:overflow-hidden">
           {/* Header Area */}
           <div className="shrink-0 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 animate-fade-in-up">
             <div>

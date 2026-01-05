@@ -97,7 +97,7 @@ const UserChatbot = () => {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-100/50 rounded-full blur-[100px]" />
       </div>
 
-      <div className="flex flex-col h-[calc(100vh-8rem)] lg:h-[calc(100vh-6rem)] gap-6 font-sans relative">
+      <div className="flex flex-col h-[calc(100dvh-8rem)] lg:h-[calc(100vh-6rem)] gap-6 font-sans relative">
         {/* Header Area */}
         <div className="flex items-center justify-between shrink-0 mb-2">
           <div>

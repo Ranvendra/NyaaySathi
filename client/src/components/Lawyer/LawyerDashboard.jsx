@@ -296,14 +296,14 @@ const LawyerDashboard = () => {
          Fixed Height Container: h-[calc(100vh)] or similar to prevent window scroll. 
          Using h-screen and overflow-hidden on the main wrapper.
       */}
-      <div className="h-screen bg-[#F8FAFC] relative overflow-hidden font-sans flex flex-col">
+      <div className="min-h-screen xl:h-screen bg-[#F8FAFC] relative xl:overflow-hidden font-sans flex flex-col">
         {/* Subtle Background Mesh */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] opacity-60" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[100px] opacity-60" />
         </div>
 
-        <div className="flex-1 flex flex-col p-4 sm:p-8 max-w-[1600px] mx-auto w-full relative z-10 h-full overflow-hidden">
+        <div className="flex-1 flex flex-col p-4 sm:p-8 max-w-[1600px] mx-auto w-full relative z-10 xl:h-full xl:overflow-hidden">
           {/* Header Section - Fixed at Top */}
           <div className="flex-shrink-0 flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 animate-fade-in-up">
             <div>
@@ -392,7 +392,7 @@ const LawyerDashboard = () => {
 
           {/* Bottom Section - Scrollable Containers */}
           {/* Use flex-1 to take up remaining height, and min-h-0 to allow scrolling inside flex children */}
-          <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-12 gap-8 h-full overflow-hidden footer-margin-fix pb-6">
+          <div className="flex-1 shrink-0 xl:min-h-0 grid grid-cols-1 xl:grid-cols-12 gap-8 xl:h-full xl:overflow-hidden footer-margin-fix pb-6">
             {/* Left Column: Timeline (Quick Actions REMOVED) */}
             <div className="xl:col-span-8 flex flex-col gap-6 h-full min-h-0">
               {/* Upcoming Consultations Timeline - SCROLLABLE & COMPACT */}
@@ -487,8 +487,8 @@ const LawyerDashboard = () => {
             </div>
 
             {/* Right Column: Recent Messages - SCROLLABLE */}
-            <div className="xl:col-span-4 h-full min-h-0 flex flex-col">
-              <div className="flex-1 bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden flex flex-col min-h-0">
+            <div className="xl:col-span-4 h-auto xl:h-full xl:min-h-0 flex flex-col">
+              <div className="flex-1 bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden flex flex-col h-[500px] xl:h-auto min-h-0">
                 <div className="flex items-center justify-between p-6 pb-4 flex-shrink-0 border-b border-transparent">
                   <h2 className="text-xl font-bold text-slate-900">Messages</h2>
                   <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors">
