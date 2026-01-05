@@ -8,12 +8,14 @@ require("dotenv").config();
 
 const app = express();
 
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-  cors({
-    credentials: true,
-  })
+    cors({
+        origin: ["http://localhost:5173", "https://nyaaysathi.vercel.app"],
+        credentials: true,
+    })
 );
 
 connectDB();
@@ -21,9 +23,9 @@ connectDB();
 app.use("/api/auth", authRouter);
 app.use("/api/lawyer", lawyerRouter);
 app.use("/", async (req, res) => {
-  return res
-    .status(200)
-    .json({ message: "Nyaay Sathi Server is running Successfully." });
+    return res
+        .status(200)
+        .json({ message: "Nyaay Sathi Server is running Successfully." });
 });
 
 module.exports = { app };

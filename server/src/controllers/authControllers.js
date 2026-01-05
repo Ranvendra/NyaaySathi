@@ -17,11 +17,14 @@ async function loginController(req, res) {
 
     const token = generateToken(user);
 
+    const isProduction =
+      process.env.NODE_ENV === "production" || process.env.RENDER === "true";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     return res.status(200).json({ message: "Login Success.", user });
