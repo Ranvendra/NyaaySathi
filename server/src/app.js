@@ -11,13 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-    cors({
-        origin: [
-            "http://localhost:5173",
-            (process.env.FRONTEND_URL || "").replace(/\/$/, ""),
-        ].filter(Boolean), // Remove empty strings if env var is missing
-        credentials: true,
-    })
+  cors({
+    credentials: true,
+  })
 );
 
 connectDB();
@@ -25,7 +21,9 @@ connectDB();
 app.use("/api/auth", authRouter);
 app.use("/api/lawyer", lawyerRouter);
 app.use("/", async (req, res) => {
-    return res.status(200).json({ message: "Nyaay Sathi Server is running Successfully." })
-})
+  return res
+    .status(200)
+    .json({ message: "Nyaay Sathi Server is running Successfully." });
+});
 
 module.exports = { app };
