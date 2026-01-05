@@ -148,7 +148,7 @@ const UserChatbot = () => {
                     className={`p-5 rounded-2xl shadow-sm text-sm leading-relaxed relative border ${
                       msg.sender === "ai"
                         ? "bg-white text-slate-800 rounded-tl-none border-gray-100"
-                        : "bg-slate-900 text-white rounded-tr-none shadow-slate-900/10 border-transparent"
+                        : "bg-[#d9fdd3] text-slate-800 rounded-tr-none shadow-sm border-transparent"
                     }`}
                   >
                     <p>{msg.text}</p>
@@ -157,7 +157,7 @@ const UserChatbot = () => {
                     <div
                       className={`flex items-center gap-2 mt-2 text-[10px] font-bold opacity-70 ${
                         msg.sender === "user"
-                          ? "text-slate-300 justify-end"
+                          ? "text-slate-600 justify-end"
                           : "text-slate-400"
                       }`}
                     >
