@@ -208,7 +208,7 @@ const LawyerMessages = () => {
           <div
             className={`${
               mobileView === "list" ? "flex" : "hidden"
-            } lg:flex flex-col w-full lg:w-96 bg-white/80 backdrop-blur-xl border border-white rounded-[32px] shadow-sm overflow-hidden flex-shrink-0 animate-fade-in-up transition-all duration-300`}
+            } lg:flex flex-col w-full lg:w-96 bg-white/80 backdrop-blur-xl border border-white rounded-[32px] shadow-sm overflow-hidden shrink-0 animate-fade-in-up transition-all duration-300`}
           >
             {/* Sidebar Header */}
             <div className="px-6 py-6 border-b border-slate-100/50">
@@ -243,7 +243,7 @@ const LawyerMessages = () => {
                       : "hover:bg-white/60 border-transparent hover:border-slate-100 hover:shadow-sm"
                   }`}
                 >
-                  <div className="relative flex-shrink-0">
+                  <div className="relative shrink-0">
                     {/* UPDATED: Rounded-full for circular profile images */}
                     <div
                       className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-base shadow-sm ring-4 ring-opacity-20 ${contact.color}`}
@@ -371,7 +371,7 @@ const LawyerMessages = () => {
                         {/* Avatar for Them - UPDATED SIZE & SHAPE */}
                         {msg.sender !== "me" && (
                           <div
-                            className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold ${activeChat.color} shadow-sm ring-2 ring-white`}
+                            className={`w-10 h-10 rounded-full shrink-0 flex items-center justify-center text-xs font-bold ${activeChat.color} shadow-sm ring-2 ring-white`}
                           >
                             {activeChat.initials}
                           </div>
@@ -379,7 +379,7 @@ const LawyerMessages = () => {
 
                         {/* Avatar for Me - UPDATED SIZE & SHAPE */}
                         {msg.sender === "me" && (
-                          <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center bg-slate-900 text-white shadow-sm ring-2 ring-white">
+                          <div className="w-10 h-10 rounded-full shrink-0 flex items-center justify-center bg-slate-900 text-white shadow-sm ring-2 ring-white">
                             <User size={16} />
                           </div>
                         )}
@@ -403,7 +403,7 @@ const LawyerMessages = () => {
                             <div
                               className={`px-6 py-4 text-[15px] font-medium leading-relaxed shadow-sm transition-all hover:shadow-md ${
                                 msg.sender === "me"
-                                  ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-[24px] rounded-tr-none"
+                                  ? "bg-linear-to-br from-blue-600 to-indigo-600 text-white rounded-[24px] rounded-tr-none"
                                   : "bg-white text-slate-700 rounded-[24px] rounded-tl-none border border-slate-100"
                               }`}
                             >
@@ -435,8 +435,8 @@ const LawyerMessages = () => {
                 </div>
 
                 {/* Input Area */}
-                <div className="p-5 bg-white border-t border-slate-100 flex-shrink-0">
-                  <div className="flex items-end gap-3 bg-slate-50 p-2 rounded-[24px] border border-slate-100 focus-within:bg-white focus-within:border-blue-200 focus-within:ring-4 focus-within:ring-blue-100 transition-all shadow-inner">
+                <div className="p-5 bg-white border-t border-slate-100 shrink-0">
+                  <div className="flex items-end gap-3 bg-slate-50 p-2 rounded-[24px] border border-slate-100 focus-within:bg-white focus-within:border-blue-200 transition-all shadow-inner">
                     <button className="p-3 text-slate-400 hover:text-blue-600 bg-transparent hover:bg-indigo-50 rounded-2xl transition-all">
                       <Paperclip size={20} />
                     </button>

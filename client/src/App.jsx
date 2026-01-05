@@ -5,6 +5,9 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Signup from "./components/LandingPage/Signup";
 import Login from "./components/LandingPage/Login";
 import UserDashboard from "./components/User/UserDashboard";
+import UserConsultation from "./components/User/UserConsultation";
+import UserChatbot from "./components/User/UserChatbot";
+import UserDocuments from "./components/User/UserDocuments";
 import LawyerDashboard from "./components/Lawyer/LawyerDashboard";
 import LawyerCases from "./components/Lawyer/LawyerCases";
 import LawyerCalendar from "./components/Lawyer/LawyerCalendar";
@@ -47,6 +50,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
+        <Route path="/user/consultation" element={<UserConsultation />} />
+        <Route path="/user/chatbot" element={<UserChatbot />} />
+        <Route path="/user/documents" element={<UserDocuments />} />
         <Route path="/lawyer/cases" element={<LawyerCases />} />
         <Route path="/lawyer/calendar" element={<LawyerCalendar />} />
         <Route path="/lawyer/messages" element={<LawyerMessages />} />
