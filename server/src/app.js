@@ -2,6 +2,7 @@ const express = require("express");
 const { connectDB } = require("./db/config");
 const { authRouter } = require("./routes/authRoutes");
 const { lawyerRouter } = require("./routes/lawyerRoutes");
+const { chatbotRouter } = require("./routes/chatbotRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
@@ -22,6 +23,7 @@ connectDB();
 
 app.use("/api/auth", authRouter);
 app.use("/api/lawyer", lawyerRouter);
+app.use("/api/chatbot", chatbotRouter);
 app.use("/", async (req, res) => {
     return res
         .status(200)

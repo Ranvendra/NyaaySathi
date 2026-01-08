@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import UserLayout from "./UserLayout";
+import { sendChatMessage } from "../../services/chatbotApi";
+import toast from "react-hot-toast";
 import {
   Bot,
   User,
@@ -14,37 +16,82 @@ import {
   Send,
 } from "lucide-react";
 
+// Simple markdown-like text renderer
+const formatText = (text) => {
+  // Convert **bold** to <strong>
+  let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>');
+  
+  // Convert bullet points • to proper list items
+  formatted = formatted.replace(/^• (.*?)$/gm, '<div class="flex gap-2 ml-2"><span class="text-blue-600">•</span><span>$1</span></div>');
+  
+  return formatted;
+};
+
 const UserChatbot = () => {
   const mockUser = { name: "Jane Doe" };
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isCopying, setIsCopying] = useState(null);
   const messagesEndRef = useRef(null);
 
   const [messages, setMessages] = useState([
     {
       id: 1,
       sender: "ai",
-      text: "Hello Jane! I am your AI Legal Assistant. I can help you understand legal terms, draft documents, or answer questions about your ongoing case. How can I assist you today?",
-      timestamp: "10:30 AM",
+      text: `Welcome to NyaaySathi Legal AI Assistant. I am here to provide you with comprehensive legal support powered by advanced AI technology.
+
+**My Capabilities:**
+
+• **Legal Rights & Procedures** - Understand your rights under Indian law
+• **Document Drafting** - Create petitions, applications, and legal letters  
+• **Case Analysis** - Get strategic insights for your legal matters
+• **Legal Terms** - Explain complex legal concepts simply
+• **Quick Answers** - Instant responses to common legal questions
+
+How may I assist you today?`,
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     },
   ]);
 
   const quickPrompts = [
     {
       text: "What are my rights in this case?",
-      color: "bg-blue-50 border-blue-100 hover:bg-blue-100",
+      icon: "⚖️",
+      type: "rights",
+      color: "bg-blue-50 border-blue-100 hover:bg-blue-100 hover:border-blue-200",
     },
     {
-      text: "Draft a request for adjournment",
-      color: "bg-purple-50 border-purple-100 hover:bg-purple-100",
+      text: "Draft adjournment application",
+      icon: "📋",
+      type: "adjournment",
+      color: "bg-purple-50 border-purple-100 hover:bg-purple-100 hover:border-purple-200",
     },
     {
       text: "Explain 'Anticipatory Bail'",
-      color: "bg-emerald-50 border-emerald-100 hover:bg-emerald-100",
+      icon: "🔍",
+      type: "bail",
+      color: "bg-emerald-50 border-emerald-100 hover:bg-emerald-100 hover:border-emerald-200",
     },
     {
-      text: "Summarize my last hearing",
-      color: "bg-amber-50 border-amber-100 hover:bg-amber-100",
+      text: "First hearing preparation",
+      icon: "✓",
+      type: "hearing",
+      color: "bg-amber-50 border-amber-100 hover:bg-amber-100 hover:border-amber-200",
+    },
+    {
+      text: "How to file FIR?",
+      icon: "📝",
+      type: "fir",
+      color: "bg-rose-50 border-rose-100 hover:bg-rose-100 hover:border-rose-200",
+    },
+    {
+      text: "Consumer complaint guide",
+      icon: "👤",
+      type: "complaint",
+      color: "bg-indigo-50 border-indigo-100 hover:bg-indigo-100 hover:border-indigo-200",
     },
   ];
 
@@ -56,11 +103,11 @@ const UserChatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const newUserMsg = {
-      id: messages.length + 1,
+      id: Date.now(),
       sender: "user",
       text: input,
       timestamp: new Date().toLocaleTimeString([], {
@@ -70,23 +117,124 @@ const UserChatbot = () => {
     };
 
     setMessages((prev) => [...prev, newUserMsg]);
+    const userInput = input;
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Send message to AI backend with conversation history
+      const response = await sendChatMessage(userInput, messages);
+
       const newAiMsg = {
-        id: messages.length + 2,
+        id: Date.now() + 1,
         sender: "ai",
-        text: "I understand your query. Based on the current Indian Penal Code sections relevant to your case, here is a preliminary analysis...",
+        text: response.message,
         timestamp: new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         }),
       };
+      
       setMessages((prev) => [...prev, newAiMsg]);
+    } catch (error) {
+      console.error("AI Error:", error);
+      
+      const errorMsg = {
+        id: Date.now() + 1,
+        sender: "ai",
+        text: "⚠️ I apologize, but I'm having trouble processing your request right now. This could be due to:\n\n• High server load\n• Temporary connectivity issues\n• Service maintenance\n\nPlease try again in a moment. If the issue persists, contact support.",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      
+      setMessages((prev) => [...prev, errorMsg]);
+      toast.error("Failed to get AI response. Please try again.");
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
+  };
+
+  const handleQuickPrompt = async (prompt) => {
+    const newUserMsg = {
+      id: Date.now(),
+      sender: "user",
+      text: prompt.text,
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+
+    setMessages((prev) => [...prev, newUserMsg]);
+    setIsTyping(true);
+
+    try {
+      const response = await sendChatMessage(prompt.text, messages, "general");
+      
+      const newAiMsg = {
+        id: Date.now() + 1,
+        sender: "ai",
+        text: response.message,
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      
+      setMessages((prev) => [...prev, newAiMsg]);
+    } catch (error) {
+      console.error("Quick Prompt Error:", error);
+      toast.error("Failed to process quick prompt");
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const handleCopyMessage = async (text, messageId) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setIsCopying(messageId);
+      toast.success("Copied to clipboard!");
+      setTimeout(() => setIsCopying(null), 2000);
+    } catch (error) {
+      toast.error("Failed to copy");
+    }
+  };
+
+  const handleRegenerateResponse = async (messageIndex) => {
+    // Find the last user message before this AI message
+    const userMessageIndex = messageIndex - 1;
+    if (userMessageIndex >= 0 && messages[userMessageIndex].sender === "user") {
+      setIsTyping(true);
+      try {
+        const userMessage = messages[userMessageIndex].text;
+        const historyBeforeRegenerate = messages.slice(0, userMessageIndex);
+        
+        const response = await sendChatMessage(userMessage, historyBeforeRegenerate);
+        
+        // Update the AI message
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[messageIndex] = {
+            ...newMessages[messageIndex],
+            text: response.message,
+            timestamp: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          };
+          return newMessages;
+        });
+        
+        toast.success("Response regenerated!");
+      } catch (error) {
+        toast.error("Failed to regenerate");
+      } finally {
+        setIsTyping(false);
+      }
+    }
   };
 
   return (
@@ -120,7 +268,7 @@ const UserChatbot = () => {
         <div className="flex-1 bg-white/70 backdrop-blur-2xl border border-white/60 shadow-xl rounded-[32px] overflow-hidden flex flex-col relative isolate transform-gpu ring-1 ring-slate-900/5">
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-6 space-y-8 scroll-smooth custom-scrollbar">
-            {messages.map((msg) => (
+            {messages.map((msg, index) => (
               <div
                 key={msg.id}
                 className={`flex gap-4 ${
@@ -151,7 +299,12 @@ const UserChatbot = () => {
                         : "bg-[#d9fdd3] text-slate-800 rounded-tr-none shadow-sm border-transparent"
                     }`}
                   >
-                    <p>{msg.text}</p>
+                    <div 
+                      className="prose prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ 
+                        __html: msg.sender === "ai" ? formatText(msg.text) : msg.text 
+                      }}
+                    />
 
                     {/* Meta */}
                     <div
@@ -171,10 +324,31 @@ const UserChatbot = () => {
                   {/* Actions (AI) */}
                   {msg.sender === "ai" && (
                     <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-2">
-                      <ActionButton icon={Copy} />
-                      <ActionButton icon={ThumbsUp} />
-                      <ActionButton icon={ThumbsDown} />
-                      <ActionButton icon={RefreshCw} />
+                      <button
+                        onClick={() => handleCopyMessage(msg.text, msg.id)}
+                        className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition-colors"
+                        title="Copy message"
+                      >
+                        {isCopying === msg.id ? (
+                          <span className="text-green-500">✓</span>
+                        ) : (
+                          <Copy size={14} />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => handleRegenerateResponse(index)}
+                        disabled={isTyping}
+                        className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition-colors disabled:opacity-50"
+                        title="Regenerate response"
+                      >
+                        <RefreshCw size={14} />
+                      </button>
+                      <button className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-green-600 transition-colors" title="Good response">
+                        <ThumbsUp size={14} />
+                      </button>
+                      <button className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-red-600 transition-colors" title="Poor response">
+                        <ThumbsDown size={14} />
+                      </button>
                     </div>
                   )}
                 </div>
@@ -200,14 +374,16 @@ const UserChatbot = () => {
           <div className="p-4 bg-white/60 backdrop-blur-xl border-t border-white/50">
             {/* Quick Prompts */}
             {messages.length < 3 && (
-              <div className="flex gap-2 overflow-x-auto pb-4 no-scrollbar">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pb-4">
                 {quickPrompts.map((prompt, i) => (
                   <button
                     key={i}
-                    onClick={() => setInput(prompt.text)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold border shadow-sm transition-all whitespace-nowrap active:scale-95 ${prompt.color}`}
+                    onClick={() => handleQuickPrompt(prompt)}
+                    disabled={isTyping}
+                    className={`px-4 py-3 rounded-xl text-xs font-bold border shadow-sm transition-all hover:shadow-md active:scale-95 flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed ${prompt.color}`}
                   >
-                    {prompt.text}
+                    <span className="text-base">{prompt.icon}</span>
+                    <span className="text-left">{prompt.text}</span>
                   </button>
                 ))}
               </div>
